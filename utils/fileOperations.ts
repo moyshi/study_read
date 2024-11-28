@@ -17,18 +17,6 @@ interface TextWithGaps {
   gapPositions: { start: number; end: number; word: string }[];
 }
 
-interface WordFrequency {
-  word: string;
-  frequency: number;
-  textTitle: string;
-}
-
-interface GameText {
-  title: string;
-  content: string;
-  words: { word: string; frequency: number }[];
-}
-
 export async function readTextsFromFile() {
   try {
     const fileContent = await fs.promises.readFile(TEXTS_FILE, 'utf-8');
@@ -63,7 +51,7 @@ export async function getRandomTextAndWords(maxLength: number = 5, minLength: nu
     const wordFrequencyMap = new Map<string, number>();
 
     // Count word frequencies
-    words.forEach(word => {
+    words.forEach((word: string) => {
       const cleanWord = word.trim();
       if (cleanWord && cleanWord.length <= maxLength && cleanWord.length >= minLength) {
         wordFrequencyMap.set(cleanWord, (wordFrequencyMap.get(cleanWord) || 0) + 1);

@@ -14,7 +14,6 @@ interface GapWord {
 
 export default function TextCompletionGame() {
   const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
   const [gapWords, setGapWords] = useState<GapWord[]>([]);
   const [selectedGapIndex, setSelectedGapIndex] = useState<number | null>(null);
   const [isComplete, setIsComplete] = useState(false);
@@ -66,7 +65,6 @@ export default function TextCompletionGame() {
     const textWithGaps = await getTextWithGaps(selectedText, previousWords);
     
     setTitle(textWithGaps.title);
-    setContent(textWithGaps.content);
 
     // Sort gaps by position
     const sortedGaps = [...textWithGaps.gapPositions].sort((a, b) => a.start - b.start);
