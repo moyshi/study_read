@@ -14,7 +14,6 @@ export default function TextsPage() {
   const [texts, setTexts] = useState<Text[]>([]);
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
-  const [error, setError] = useState('');
   const [selectedTextIndex, setSelectedTextIndex] = useState<number | null>(null);
 
   useEffect(() => {
