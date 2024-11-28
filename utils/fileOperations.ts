@@ -1,8 +1,22 @@
 'use server';
-import fs from 'fs';
-import path from 'path';
 
-const TEXTS_FILE = path.join(process.cwd(), 'data', 'words.json');
+let texts = [
+    {
+      "id": 1,
+      "title": "הטיול לצפון",
+      "content": "בסוף השבוע שעבר יצאנו למסע מרתק בצפון הארץ. טיילנו בין נחלים שוצפים, טיפסנו על הרים גבוהים, וביקרנו בכפרים ציוריים. הנוף היה מדהים - שדות ירוקים משתרעים עד האופק, פרחי בר בשלל צבעים, ועצים עתיקים מספרים את סיפורי המקום. פגשנו אנשים מקסימים שאירחו אותנו בחום ושיתפו אותנו בסיפורים מרתקים על ההיסטוריה של האזור. בערב ישבנו סביב המדורה, צלינו מרשמלו, ושרנו שירים תחת שמי הכוכבים. זו הייתה חוויה בלתי נשכחת שתישאר איתנו עוד זמן רב."
+    },
+    {
+      "id": 2,
+      "title": "הגינה שלי",
+      "content": "לפני שנה החלטתי להקים גינה קטנה במרפסת ביתי. התחלתי עם כמה עציצים קטנים של עשבי תיבול - נענע, בזיליקום ורוזמרין. עם הזמן, התאהבתי בטיפול בצמחים והתחלתי להרחיב את הגינה. היום יש לי מגוון רחב של צמחים: עגבניות שרי מתוקות, פלפלים צבעוניים, ופרחים ריחניים. כל בוקר אני מתחיל את היום בהשקיית הצמחים ובדיקת מצבם. זה מדהים לראות איך מזרע קטן צומח צמח שלם, ואין דבר משמח יותר מאשר לקטוף ירקות טריים שגידלת במו ידיך."
+    },
+    {
+      "id": 3,
+      "title": "המתכון המשפחתי",
+      "content": "סבתא שלי תמיד אומרת שהסוד לאוכל טוב הוא אהבה. המתכון המשפחתי שלנו לעוגת השוקולד עובר במשפחה כבר ארבעה דורות. כל פעם שאני מכין את העוגה, אני נזכר בילדותי - כשהייתי עומד במטבח עם סבתא, מסתכל איך היא מערבבת את החומרים באיטיות ובדייקנות. הריח המתוק של השוקולד ממלא את הבית, והציפייה לטעימה הראשונה תמיד מרגשת. היום, כשאני מלמד את ילדיי להכין את אותה עוגה, אני מרגיש שאני מעביר הלאה לא רק מתכון, אלא גם מסורת של אהבה ומשפחתיות."
+    }
+  ]
 
 interface Text {
   id: number;
@@ -18,23 +32,11 @@ interface TextWithGaps {
 }
 
 export async function readTextsFromFile() {
-  try {
-    const fileContent = await fs.promises.readFile(TEXTS_FILE, 'utf-8');
-    return JSON.parse(fileContent).texts;
-  } catch (error) {
-    console.error('Error reading texts file:', error);
-    return [];
-  }
+  return texts
 }
 
-export async function writeTextsToFile(texts: Text[]) {
-  try {
-    await fs.promises.writeFile(TEXTS_FILE, JSON.stringify({ texts }, null, 2), 'utf-8');
-    return true;
-  } catch (error) {
-    console.error('Error writing texts file:', error);
-    return false;
-  }
+export async function writeTextsToFile(texts2: Text[]) {
+  texts = texts2
 }
 
 export async function getRandomTextAndWords(maxLength: number = 5, minLength: number = 2, count: number = 10): Promise<{ 
